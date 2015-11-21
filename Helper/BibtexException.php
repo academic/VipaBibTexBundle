@@ -25,6 +25,6 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  * @version    CVS: $Id: BibTex.php 322412 2012-01-17 14:25:28Z clockwerx $
  * @link       http://pear.php.net/package/Structures_BibTex
  */
-class Structures_BibTex_Exception extends Exception
+class BibtexException extends Exception
 {
 }

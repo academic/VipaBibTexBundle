@@ -1,44 +1,46 @@
 <?php
 namespace OpenJournalSoftware\BibtexBundle\Helper;
 
-/**
- * Class for working with BibTex data
- *
- * A class which provides common methods to access and
- * create Strings in BibTex format
- *
- * PHP version 5
- *
- * LICENSE: This source file is subject to version 3.0 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
- *
- * @category   Structures
- * @package    Structures_BibTex
- * @author     Elmar Pitschke <elmar.pitschke@gmx.de>
- * @copyright  1997-2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: BibTex.php 322412 2012-01-17 14:25:28Z clockwerx $
- * @link       http://pear.php.net/package/Structures_BibTex
- */
+
+
+    /**
+     * Class for working with BibTex data
+     *
+     * A class which provides common methods to access and
+     * create Strings in BibTex format
+     *
+     * PHP version 5
+     *
+     * LICENSE: This source file is subject to version 3.0 of the PHP license
+     * that is available through the world-wide-web at the following URI:
+     * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+     * the PHP License and are unable to obtain it through the web, please
+     * send a note to license@php.net so we can mail you a copy immediately.
+     *
+     * @category   Structures
+     * @package    Structures_Bibtex
+     * @author     Elmar Pitschke <elmar.pitschke@gmx.de>
+     * @copyright  1997-2005 The PHP Group
+     * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+     * @version    CVS: $Id: BibTex.php 322412 2012-01-17 14:25:28Z clockwerx $
+     * @link       http://pear.php.net/package/Structures_Bibtex
+     */
 
 /**
- * Structures_BibTex
+ * Structures_Bibtex
  *
  * A class which provides common methods to access and
  * create Strings in BibTex format.
  * Example 1: Parsing a BibTex File and returning the number of entries
  * <code>
- * $bibtex = new Structures_BibTex();
+ * $bibtex = new Structures_Bibtex();
  * $ret    = $bibtex->loadFile('foo.bib');
  * $bibtex->parse();
  * print "There are ".$bibtex->amount()." entries";
  * </code>
  * Example 2: Parsing a BibTex File and getting all Titles
  * <code>
- * $bibtex = new Structures_BibTex();
+ * $bibtex = new Structures_Bibtex();
  * $ret    = $bibtex->loadFile('bibtex.bib');
  * $bibtex->parse();
  * foreach ($bibtex->data as $entry) {
@@ -47,7 +49,7 @@ namespace OpenJournalSoftware\BibtexBundle\Helper;
  * </code>
  * Example 3: Adding an entry and printing it in BibTex Format
  * <code>
- * $bibtex                         = new Structures_BibTex();
+ * $bibtex                         = new Structures_Bibtex();
  * $addarray                       = array();
  * $addarray['entryType']          = 'Article';
  * $addarray['cite']               = 'art2';
@@ -61,14 +63,14 @@ namespace OpenJournalSoftware\BibtexBundle\Helper;
  * </code>
  *
  * @category   Structures
- * @package    Structures_BibTex
+ * @package    Structures_Bibtex
  * @author     Elmar Pitschke <elmar.pitschke@gmx.de>
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
  * @link       http://pear.php.net/Structures/Structure_BibTex
  */
-class Structures_BibTex
+class Bibtex
 {
     /**
      * Array with the BibTex Data
@@ -140,7 +142,7 @@ class Structures_BibTex
      * @access public
      * @return void
      */
-    function Structures_BibTex($options = array())
+    function Structures_Bibtex($options = array())
     {
         $this->_delimiters = array('"' => '"',
             '{' => '}');
@@ -208,20 +210,20 @@ class Structures_BibTex
      * @access public
      * @param string $filename Name of the file
      * @return mixed true on success
-     * @throws Structures_BibTex_Exception
+     * @throws BibtexException
      */
     function loadFile($filename)
     {
         if (file_exists($filename)) {
             if (($this->content = @file_get_contents($filename)) === false) {
-                throw new Structures_BibTex_Exception('Could not open file ' . $filename);
+                throw new BibtexException('Could not open file ' . $filename);
             } else {
                 $this->_pos = 0;
                 $this->_oldpos = 0;
                 return true;
             }
         } else {
-            throw new Structures_BibTex_Exception('Could not find file ' . $filename);
+            throw new BibtexException('Could not find file ' . $filename);
         }
     }
 
@@ -230,7 +232,7 @@ class Structures_BibTex
      *
      * @access public
      * @return boolean true on success
-     * @throws Structures_BibTex_Exception
+     * @throws BibtexException
      */
     function parse()
     {
@@ -320,7 +322,7 @@ class Structures_BibTex
             $this->content = '';
             return true;
         } else {
-            throw new Structures_BibTex_Exception('Unbalanced parenthesis');
+            throw new BibtexException('Unbalanced parenthesis');
         }
     }
 
@@ -658,7 +660,7 @@ class Structures_BibTex
                                             if (0 == $futurecase) {
                                                 $islast = false;
                                             }
-                                        } catch (Structures_BibTex_Exception $sbe) {
+                                        } catch (BibtexException $sbe) {
                                             // Ignore
                                         }
                                     }
@@ -675,7 +677,7 @@ class Structures_BibTex
                                 } else {
                                     $von .= ' ' . $tmparray[$j];
                                 }
-                            } catch (Structures_BibTex_Exception $sbe) {
+                            } catch (BibtexException $sbe) {
                                 // Ignore
                             }
                         } else {
@@ -688,7 +690,7 @@ class Structures_BibTex
                                 } else {
                                     $first .= ' ' . $tmparray[$j];
                                 }
-                            } catch (Structures_BibTex_Exception $sbe) {
+                            } catch (BibtexException $sbe) {
                                 // Ignore
                             }
                         }
@@ -721,7 +723,7 @@ class Structures_BibTex
                                         if (0 == $case) {
                                             $islast = false;
                                         }
-                                    } catch (Structures_BibTex_Exception $sbe) {
+                                    } catch (BibtexException $sbe) {
                                         // Ignore
                                     }
                                 }
@@ -762,7 +764,7 @@ class Structures_BibTex
      * @access private
      * @param string $word
      * @return int The Case
-     * @throws Structures_BibTex_Exception
+     * @throws BibtexException
      */
     function _determineCase($word)
     {
@@ -794,7 +796,7 @@ class Structures_BibTex
                 }
             }
         } else {
-            throw new Structures_BibTex_Exception('Could not determine case on word: ' . (string)$word);
+            throw new BibtexException('Could not determine case on word: ' . (string)$word);
         }
         return $ret;
     }
@@ -961,7 +963,7 @@ class Structures_BibTex
         $ret = str_replace("JR,", $array['jr'], $ret);
         $ret = str_replace("FIRST", $array['first'], $ret);
 
-        return trim(print_r($ret,1));
+        return trim(print_r($ret, 1));
     }
 
     /**
@@ -1188,4 +1190,3 @@ class Structures_BibTex
         return ($tex);
     }
 }
-
