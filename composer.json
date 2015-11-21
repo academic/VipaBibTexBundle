@@ -1,10 +1,11 @@
 {
     "name": "openjournalsoftware/bibtex",
+    "description": "BibTex formater",
     "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "OpenJournalSoftware\\BibtexBundle": ""
+            "OpenJournalSoftware\\BibtexBundle\\": ""
         }
     },
     "keywords": [
